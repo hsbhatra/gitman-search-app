@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
+import SearchBar from '../components/SearchBar';
 
 const HomePage = () => {
   return (
@@ -11,43 +12,75 @@ const HomePage = () => {
       
       {/* Main Content - Will add search functionality next */}
       <div style={{
-        flex: '1',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '0 1rem',
+        padding: '2rem 1rem',
         minHeight: 'calc(100vh - 64px)'
       }}>
-        <div className="text-center" style={{ maxWidth: '1024px', margin: '0 auto' }}>
+        <div className="text-center" style={{ 
+          maxWidth: '800px', 
+          margin: '0 auto',
+          transform: 'translateY(-50px)' // Move it up slightly to center better
+        }}>
           {/* Logo */}
           <div style={{ marginBottom: '3rem' }}>
-            <div className="flex justify-center items-center space-x-4" style={{ marginBottom: '1rem' }}>
-              <div style={{
-                width: '64px',
-                height: '64px',
-                backgroundColor: '#2563eb',
-                borderRadius: '16px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'center', 
+              alignItems: 'center', 
+              marginBottom: '2rem',
+              flexDirection: 'column'
+            }}>
+              {/* Logo and Girman text in a row */}
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center',
+                marginBottom: '0.5rem'
               }}>
-                <span style={{ color: 'white', fontWeight: 'bold', fontSize: '32px' }}>G</span>
+                <div style={{
+                  width: '80px',
+                  height: '80px',
+                  backgroundColor: '#2563eb',
+                  borderRadius: '20px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginRight: '1rem'
+                }}>
+                  <span style={{ color: 'white', fontWeight: 'bold', fontSize: '40px' }}>G</span>
+                </div>
+                <h1 style={{
+                  fontSize: '72px',
+                  fontWeight: 'bold',
+                  color: '#111827',
+                  margin: '0',
+                  lineHeight: '1'
+                }}>
+                  Girman
+                </h1>
               </div>
-              <h1 style={{
-                fontSize: '64px',
-                fontWeight: 'bold',
-                color: '#111827',
-                margin: '0'
+              
+              {/* Technologies text centered below */}
+              <span style={{ 
+                fontSize: '14px', 
+                color: '#6b7280', 
+                letterSpacing: '2px',
+                fontWeight: '400'
               }}>
-                Girman
-              </h1>
+                TECHNOLOGIES
+              </span>
             </div>
           </div>
           
-          {/* Placeholder for search bar - we'll implement this next */}
-          <div style={{ color: '#6b7280' }}>
-            <p>Search functionality will be implemented next</p>
+          {/* Search Bar */}
+          <div style={{ marginTop: '2rem', width: '100%' }}>
+            <SearchBar />
           </div>
+          
+          {/* Additional spacing */}
+          <div style={{ height: '100px' }}></div>
         </div>
       </div>
     </div>
