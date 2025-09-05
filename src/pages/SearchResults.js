@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import UserCard from '../components/UserCard';
 import EmptyState from '../components/EmptyState';
+import UserDetailsModal from '../components/UserDetailsModal';
 import usersData from '../data/users.json';
 
 const SearchResults = () => {
@@ -11,6 +12,8 @@ const SearchResults = () => {
   const query = searchParams.get('q');
   const [searchTerm, setSearchTerm] = useState(query || '');
   const [filteredUsers, setFilteredUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Filter users based on search query
   useEffect(() => {
@@ -44,9 +47,13 @@ const SearchResults = () => {
   };
 
   const handleFetchDetails = (user) => {
-    // TODO: Implement modal with user details
-    console.log('Fetch details for:', user);
-    alert(`Details for ${user.first_name} ${user.last_name}\nCity: ${user.city}\nPhone: ${user.contact_number}`);
+    setSelectedUser(user);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedUser(null);
   };
 
   return (
@@ -186,6 +193,13 @@ const SearchResults = () => {
           )}
         </div>
       </div>
+
+      {/* User Details Modal */}
+      <UserDetailsModal 
+        user={selectedUser}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 };
