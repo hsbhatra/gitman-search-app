@@ -5,88 +5,81 @@ const EmptyState = ({ searchQuery }) => {
     <div style={{
       textAlign: 'center',
       padding: '4rem 2rem',
-      maxWidth: '400px',
+      maxWidth: '500px',
       margin: '0 auto'
     }}>
-      {/* Empty State Illustration */}
+      {/* Empty State Illustration - Exact Figma Design */}
       <div style={{
         marginBottom: '2rem',
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        position: 'relative'
       }}>
         <svg
-          style={{
-            width: '120px',
-            height: '120px',
-            color: '#d1d5db'
-          }}
-          xmlns="http://www.w3.org/2000/svg"
+          width="150"
+          height="150"
+          viewBox="0 0 150 150"
           fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={1}
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-          />
+          {/* Decorative plus signs - exactly as in Figma */}
+          <g stroke="#c7d2fe" strokeWidth="2" strokeLinecap="round">
+            {/* Top left plus */}
+            <line x1="12" y1="12" x2="12" y2="22" />
+            <line x1="7" y1="17" x2="17" y2="17" />
+            
+            {/* Top right plus */}
+            <line x1="138" y1="12" x2="138" y2="22" />
+            <line x1="133" y1="17" x2="143" y2="17" />
+            
+            {/* Bottom left plus */}
+            <line x1="12" y1="128" x2="12" y2="138" />
+            <line x1="7" y1="133" x2="17" y2="133" />
+            
+            {/* Bottom right plus */}
+            <line x1="138" y1="128" x2="138" y2="138" />
+            <line x1="133" y1="133" x2="143" y2="133" />
+          </g>
+          
+          {/* Main folder shadow */}
+          <rect x="27" y="57" width="70" height="45" rx="6" fill="#d1d5db" opacity="0.5"/>
+          
+          {/* Main folder */}
+          <rect x="25" y="55" width="70" height="45" rx="6" fill="white" stroke="#9ca3af" strokeWidth="2"/>
+          
+          {/* Folder tab */}
+          <path d="M25 55 L25 49 C25 46.8 26.8 45 29 45 L45 45 C46.1 45 47.1 45.4 47.8 46.2 L52.2 51.8 C52.9 52.6 53.9 53 55 53 L92 53 C94.2 53 96 54.8 96 57" fill="white" stroke="#9ca3af" strokeWidth="2"/>
+          
+          {/* Documents inside folder - simplified white rectangles */}
+          <rect x="35" y="65" width="14" height="18" rx="1" fill="white" stroke="#d1d5db" strokeWidth="1"/>
+          <rect x="52" y="65" width="14" height="18" rx="1" fill="white" stroke="#d1d5db" strokeWidth="1"/>
+          <rect x="69" y="65" width="14" height="18" rx="1" fill="white" stroke="#d1d5db" strokeWidth="1"/>
+          
+          {/* Magnifying glass handle shadow */}
+          <line x1="107" y1="107" x2="125" y2="125" stroke="#d1d5db" strokeWidth="6" strokeLinecap="round" opacity="0.4"/>
+          
+          {/* Magnifying glass circle shadow */}
+          <circle cx="87" cy="87" r="22" fill="#d1d5db" opacity="0.4"/>
+          
+          {/* Magnifying glass circle */}
+          <circle cx="85" cy="85" r="22" fill="white" stroke="#9ca3af" strokeWidth="3"/>
+          <circle cx="85" cy="85" r="15" fill="none" stroke="#9ca3af" strokeWidth="2"/>
+          
+          {/* Magnifying glass handle */}
+          <line x1="105" y1="105" x2="123" y2="123" stroke="#9ca3af" strokeWidth="6" strokeLinecap="round"/>
         </svg>
       </div>
 
       {/* No Results Message */}
-      <h2 style={{
-        fontSize: '24px',
-        fontWeight: '600',
-        color: '#374151',
-        marginBottom: '1rem'
+      <h3 style={{
+        fontSize: '18px',
+        fontWeight: '500',
+        color: '#6b7280',
+        margin: '0',
+        lineHeight: '1.3'
       }}>
         No results found
-      </h2>
-
-      <p style={{
-        fontSize: '16px',
-        color: '#6b7280',
-        lineHeight: '1.5',
-        marginBottom: '1.5rem'
-      }}>
-        {searchQuery ? (
-          <>
-            We couldn't find any users matching "<strong>{searchQuery}</strong>". 
-            Try searching with different keywords.
-          </>
-        ) : (
-          'Enter a search term to find users by name or location.'
-        )}
-      </p>
-
-      {/* Suggestions */}
-      <div style={{
-        backgroundColor: '#f9fafb',
-        borderRadius: '8px',
-        padding: '1rem',
-        border: '1px solid #e5e7eb'
-      }}>
-        <p style={{
-          fontSize: '14px',
-          color: '#4b5563',
-          margin: '0 0 0.5rem 0',
-          fontWeight: '500'
-        }}>
-          Try searching for:
-        </p>
-        <ul style={{
-          fontSize: '14px',
-          color: '#6b7280',
-          textAlign: 'left',
-          margin: 0,
-          paddingLeft: '1.5rem'
-        }}>
-          <li>First name (e.g., "Amit", "Priya")</li>
-          <li>Last name (e.g., "Sharma", "Gupta")</li>
-          <li>City (e.g., "Mumbai", "Delhi")</li>
-        </ul>
-      </div>
+      </h3>
     </div>
   );
 };
