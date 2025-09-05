@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleNavClick = (link) => {
+    if (link.type === 'internal') {
+      navigate(link.href);
+    }
+  };
 
   const navLinks = [
     {
@@ -31,13 +40,18 @@ const Navbar = () => {
       width: '100%', 
       backgroundColor: 'white', 
       boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-      borderBottom: '1px solid #e5e7eb'
+      borderBottom: '1px solid #e5e7eb',
+      position: 'relative'
     }}>
       <div className="container">
         <div className="flex justify-between items-center" style={{ height: '64px' }}>
           {/* Logo */}
           <div className="flex items-center">
-            <div className="flex items-center space-x-2">
+            <div 
+              className="flex items-center space-x-2"
+              onClick={() => navigate('/')}
+              style={{ cursor: 'pointer' }}
+            >
               <div style={{
                 width: '32px',
                 height: '32px',
@@ -49,38 +63,45 @@ const Navbar = () => {
               }}>
                 <span style={{ color: 'white', fontWeight: 'bold', fontSize: '18px' }}>G</span>
               </div>
-              <span style={{ fontSize: '20px', fontWeight: '600', color: '#111827' }}>
-                Girman
-              </span>
-              <span style={{ fontSize: '12px', color: '#6b7280' }} className="hidden md:block">
-                TECHNOLOGIES
-              </span>
+              <div style={{ display: 'flex', flexDirection: 'column', lineHeight: '1' }}>
+                <span style={{ fontSize: '20px', fontWeight: '600', color: '#111827' }}>
+                  Girman
+                </span>
+                <span style={{ fontSize: '10px', color: '#6b7280', letterSpacing: '0.5px' }}>
+                  TECHNOLOGIES
+                </span>
+              </div>
             </div>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:block">
+          <div style={{ display: 'none' }} className="desktop-nav">
             <div className="flex items-center space-x-8">
               {navLinks.map((link) => (
                 <a
                   key={link.label}
-                  href={link.href}
+                  href={link.type !== 'internal' ? link.href : undefined}
+                  onClick={link.type === 'internal' ? (e) => {
+                    e.preventDefault();
+                    handleNavClick(link);
+                  } : undefined}
                   target={link.type === 'external' ? '_blank' : undefined}
                   rel={link.type === 'external' ? 'noopener noreferrer' : undefined}
                   style={{
                     fontSize: '14px',
                     fontWeight: '500',
-                    color: link.label === 'SEARCH' ? '#2563eb' : '#374151',
+                    color: (link.label === 'SEARCH' && location.pathname === '/') ? '#2563eb' : '#374151',
                     textDecoration: 'none',
-                    transition: 'color 0.2s'
+                    transition: 'color 0.2s',
+                    cursor: 'pointer'
                   }}
                   onMouseEnter={(e) => {
-                    if (link.label !== 'SEARCH') {
+                    if (!(link.label === 'SEARCH' && location.pathname === '/')) {
                       e.target.style.color = '#2563eb';
                     }
                   }}
                   onMouseLeave={(e) => {
-                    if (link.label !== 'SEARCH') {
+                    if (!(link.label === 'SEARCH' && location.pathname === '/')) {
                       e.target.style.color = '#374151';
                     }
                   }}
@@ -92,7 +113,7 @@ const Navbar = () => {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div style={{ display: 'block' }} className="mobile-menu-button">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               style={{
@@ -163,39 +184,52 @@ const Navbar = () => {
       </div>
 
       {/* Mobile menu */}
-      <div style={{ display: isMobileMenuOpen ? 'block' : 'none' }} className="md:hidden">
+      <div style={{ display: isMobileMenuOpen ? 'block' : 'none' }} className="mobile-menu">
         <div style={{
-          padding: '8px 16px 12px',
+          position: 'absolute',
+          top: '100%',
+          right: '1rem',
           backgroundColor: 'white',
-          borderTop: '1px solid #e5e7eb'
+          borderRadius: '8px',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+          border: '1px solid #e5e7eb',
+          padding: '8px',
+          minWidth: '150px',
+          zIndex: 1000
         }}>
           {navLinks.map((link) => (
             <a
               key={link.label}
-              href={link.href}
+              href={link.type !== 'internal' ? link.href : undefined}
+              onClick={link.type === 'internal' ? (e) => {
+                e.preventDefault();
+                handleNavClick(link);
+                setIsMobileMenuOpen(false);
+              } : () => setIsMobileMenuOpen(false)}
               target={link.type === 'external' ? '_blank' : undefined}
               rel={link.type === 'external' ? 'noopener noreferrer' : undefined}
               style={{
                 display: 'block',
                 padding: '8px 12px',
-                fontSize: '16px',
+                fontSize: '14px',
                 fontWeight: '500',
-                color: link.label === 'SEARCH' ? '#2563eb' : '#374151',
-                backgroundColor: link.label === 'SEARCH' ? '#eff6ff' : 'transparent',
+                color: (link.label === 'SEARCH' && location.pathname === '/') ? '#2563eb' : '#374151',
+                backgroundColor: (link.label === 'SEARCH' && location.pathname === '/') ? '#eff6ff' : 'transparent',
                 textDecoration: 'none',
                 borderRadius: '4px',
-                marginBottom: '4px',
-                transition: 'all 0.2s'
+                marginBottom: '2px',
+                transition: 'all 0.2s',
+                cursor: 'pointer',
+                whiteSpace: 'nowrap'
               }}
-              onClick={() => setIsMobileMenuOpen(false)}
               onMouseEnter={(e) => {
-                if (link.label !== 'SEARCH') {
+                if (!(link.label === 'SEARCH' && location.pathname === '/')) {
                   e.target.style.color = '#2563eb';
                   e.target.style.backgroundColor = '#f9fafb';
                 }
               }}
               onMouseLeave={(e) => {
-                if (link.label !== 'SEARCH') {
+                if (!(link.label === 'SEARCH' && location.pathname === '/')) {
                   e.target.style.color = '#374151';
                   e.target.style.backgroundColor = 'transparent';
                 }

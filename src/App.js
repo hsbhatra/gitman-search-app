@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
+import SearchResults from './pages/SearchResults';
 import './App.css';
 
 function App() {
@@ -9,8 +10,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          {/* Search results route will be added later */}
-          <Route path="/search" element={<div>Search Results Page - Coming Soon</div>} />
+          <Route path="/search" element={<SearchResults />} />
         </Routes>
       </div>
     </Router>
