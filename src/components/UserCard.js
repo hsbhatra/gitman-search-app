@@ -1,18 +1,6 @@
 import React from 'react';
 
 const UserCard = ({ user, onFetchDetails }) => {
-  // Generate a placeholder avatar based on first name initial
-  const getAvatarColor = (name) => {
-    const colors = [
-      '#3B82F6', '#EF4444', '#10B981', '#F59E0B', 
-      '#8B5CF6', '#06B6D4', '#F97316', '#84CC16'
-    ];
-    const index = name.charCodeAt(0) % colors.length;
-    return colors[index];
-  };
-
-  const avatarColor = getAvatarColor(user.first_name);
-
   return (
     <div style={{
       backgroundColor: 'white',
@@ -40,18 +28,10 @@ const UserCard = ({ user, onFetchDetails }) => {
         width: '60px',
         height: '60px',
         borderRadius: '50%',
-        backgroundColor: avatarColor,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: '24px',
-        fontWeight: 'bold',
-        color: 'white',
         marginBottom: '16px',
         background: 'url("https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face") center/cover',
         border: '2px solid #f0f0f0'
       }}>
-        {!user.profileImage && user.first_name.charAt(0).toUpperCase()}
       </div>
 
       {/* Name */}
